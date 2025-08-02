@@ -1,0 +1,80 @@
+{
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "editor.fontWeight": "normal",
+    "diffEditor.codeLens": true,
+    "diffEditor.experimental.showMoves": true,
+    "workbench.commandPalette.experimental.suggestCommands": true,
+    "workbench.quickOpen.preserveInput": true,
+    "workbench.preferredDarkColorTheme": "Default High Contrast",
+    "workbench.editor.highlightModifiedTabs": true,
+    "eslint.format.enable": true,
+
+    "eslint.validate": ["typescript", "javascript", "yaml", "yml"],
+
+    "javascript.format.insertSpaceAfterConstructor": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "javascript.inlayHints.parameterTypes.enabled": true,
+
+    "typescript.suggest.paths": false,
+    "javascript.suggest.paths": false,
+    "workbench.iconTheme": "vscode-icons",
+    "eslint.debug": true,
+    "markdown.validate.unusedLinkDefinitions.enabled": "warning",
+    "workbench.editor.enablePreview": false,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "javascript.referencesCodeLens.enabled": true,
+    "javascript.referencesCodeLens.showOnAllFunctions": true,
+    "typescript.referencesCodeLens.enabled": true,
+    "typescript.referencesCodeLens.showOnAllFunctions": true,
+    "editor.wordWrap": "on",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.supportDocstringTemplate": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.typeEvaluation.enableReachabilityAnalysis": true,
+    "explorer.autoRevealExclude": {
+        "**/artifacts": true
+    },
+    "security.promptForLocalFileProtocolHandling": false,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.guides.bracketPairs": true,
+    "window.newWindowProfile": "Default",
+    "editor.cursorBlinking": "expand",
+    "accessibility.signalOptions.volume": 0,
+    "github.copilot.chat.codesearch.enabled": true,
+    "github.copilot.chat.agent.thinkingTool": true,
+    "github.copilot.nextEditSuggestions.enabled": false,
+    "editor.minimap.showSlider": "always",
+    "editor.mouseWheelZoom": true,
+    "redhat.telemetry.enabled": true,
+    "[yaml]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "typescript": true
+    },
+    "playwright.reuseBrowser": true,
+    "playwright.showTrace": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "code-runner.ignoreSelection": true,
+    "code-runner.clearPreviousOutput": false
+}
