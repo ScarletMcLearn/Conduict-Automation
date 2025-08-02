@@ -6,6 +6,11 @@ import { faker } from "@faker-js/faker";
 import path from "path";
 import fs from "fs";
 import { createArticle } from "src/utils/playwright-utils/createArticle";
+import { editArticle } from "src/utils/playwright-utils/editArticle";
+import { deleteArticle } from "src/utils/playwright-utils/deleteArticle";
+import { createArticleViaApi } from "src/utils/playwright-utils/createArticleViaApi";
+import { generateAuthStorageState } from "src/utils/playwright-utils/generateAuthStorageState";
+import { getApiToken } from "src/utils/playwright-utils/getApiToken";
 
 test("has title", async ({ page }) => {
   await page.goto("https://playwright.dev/");
@@ -195,4 +200,151 @@ test("Create new dynamic article", async ({ browser }) => {
 
   // Optional: log or assert additional things
   console.log("Article created:", articleData.title);
+});
+
+test("Edit an article after creating it", async ({ browser }) => {
+  const { context, page } = await authenticateSession(
+    browser,
+    "https://conduit.bondaracademy.com",
+    "test96@yopmail.com",
+    "Test@1234"
+  );
+
+  const editedData = await editArticle(page);
+  console.log("Edited article:", editedData.title);
+
+  await context.close();
+});
+
+test("Delete article and validate backend deletion", async ({ browser }) => {
+  const { context, page } = await authenticateSession(
+    browser,
+    "https://conduit.bondaracademy.com",
+    "test96@yopmail.com",
+    "Test@1234"
+  );
+
+  await deleteArticle(page);
+});
+
+// test("Create article via API and verify response", async () => {
+//   const authToken = "your_valid_jwt_token_here";
+
+//   const article = await createArticleViaApi(authToken);
+
+//   console.log("✅ Article created via API:", article.slug);
+// });
+
+test("Create article using fresh or cached API token", async ({ browser }) => {
+  const token = await getApiToken(browser);
+  const article = await createArticleViaApi(token);
+  console.log("✅ Created article slug:", article.slug);
+});
+
+test("Create article via API and edit via UI", async ({ browser }) => {
+  const token = await getApiToken(browser);
+  const article = await createArticleViaApi(token);
+  const articleUrl = `https://conduit.bondaracademy.com/article/${article.slug}`;
+
+  const { page, context } = await authenticateSession(
+    browser,
+    "https://conduit.bondaracademy.com",
+    "test96@yopmail.com",
+    "Test@1234"
+  );
+
+  await page.goto(articleUrl);
+  await expect(
+    page.getByRole("link", { name: " Edit Article" }).first()
+  ).toBeVisible();
+  await page.getByRole("link", { name: " Edit Article" }).first().click();
+
+  const newValue = `Edited ${article.title}`;
+  await page.getByRole("textbox", { name: "Article Title" }).fill(newValue);
+  await page
+    .getByRole("textbox", { name: "What's this article about?" })
+    .fill(newValue);
+  await page
+    .getByRole("textbox", { name: "Write your article (in markdown)" })
+    .fill(newValue);
+  await page.getByRole("textbox", { name: "Enter tags" }).fill("edited");
+
+  await page.getByRole("button", { name: "Publish Article" }).click();
+  await expect(page.getByRole("heading", { name: newValue })).toBeVisible();
+
+  await context.close();
+});
+
+test("Create article via API and delete via UI", async ({ browser }) => {
+  const token = await getApiToken(browser);
+  const article = await createArticleViaApi(token);
+  const articleUrl = `https://conduit.bondaracademy.com/article/${article.slug}`;
+
+  const { page, context } = await authenticateSession(
+    browser,
+    "https://conduit.bondaracademy.com",
+    "test96@yopmail.com",
+    "Test@1234"
+  );
+
+  await page.goto(articleUrl);
+  await expect(
+    page.getByRole("button", { name: " Delete Article" }).first()
+  ).toBeVisible();
+  await page.getByRole("button", { name: " Delete Article" }).first().click();
+
+  await expect(page.getByText("Global Feed")).toBeVisible();
+
+  await context.close();
+});
+
+test("Filter Articles by Tag 'Community'", async ({ browser }) => {
+  const { page, context } = await authenticateSession(
+    browser,
+    "https://conduit.bondaracademy.com",
+    "test96@yopmail.com",
+    "Test@1234"
+  );
+
+  await page.goto("https://conduit.bondaracademy.com");
+
+  // Wait for tag list to appear
+  const tagLocator = page.locator("a.tag-default.tag-pill", {
+    hasText: "Community",
+  });
+  await expect(tagLocator).toBeVisible();
+
+  await tagLocator.click();
+
+  // Expect tag to be visible on the filtered articles
+  await expect(page.getByText("Community").first()).toBeVisible();
+
+  await context.close();
+});
+
+test("Update User Settings with dynamic username", async ({ browser }) => {
+  const { page, context } = await authenticateSession(
+    browser,
+    "https://conduit.bondaracademy.com",
+    "test96@yopmail.com",
+    "Test@1234"
+  );
+
+  // Generate dynamic username
+  const newUsername = faker.internet.userName();
+
+  // Navigate to Settings
+  await page.getByRole("link", { name: "  Settings" }).click();
+
+  // Fill in new username
+  await page.getByRole("textbox", { name: "Username" }).click();
+  await page.getByRole("textbox", { name: "Username" }).fill(newUsername);
+
+  // Submit update
+  await page.getByRole("button", { name: "Update Settings" }).click();
+
+  // Verify username updated
+  await expect(page.getByRole("heading", { name: newUsername })).toBeVisible();
+
+  await context.close();
 });
