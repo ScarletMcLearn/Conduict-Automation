@@ -63,8 +63,8 @@ export async function createArticleViaApi(
     const response = await apiContext.post("/api/articles/", { data: payload });
     const responseText = await response.text();
 
-    console.log("🛰 Status:", response.status());
-    console.log("📥 Response:", responseText);
+    console.log("Status:", response.status());
+    console.log("Response:", responseText);
 
     if (response.status() !== 201) {
         throw new Error(`Expected 201 Created but got ${response.status()}`);
