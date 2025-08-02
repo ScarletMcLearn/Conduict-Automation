@@ -21,7 +21,8 @@ test("has title", async ({ page }) => {
 });
 
 test("Login test", async ({ page }) => {
-    await login(page, "test96@yopmail.com", "Test@1234");
+    // await login(page, "test96@yopmail.com", "Test@1234");
+    await login(page, env.LOGIN_EMAIL!, env.LOGIN_PASSWORD!);
 
     // await page.goto("https://conduit.bondaracademy.com/login");
     // await page.getByRole("textbox", { name: "Email" }).click();
@@ -118,12 +119,17 @@ test("authenticated user flow", async ({ browser }) => {
 //     await expect(articlePage.getArticleHeading()).toBeVisible();
 // });
 
+import { env } from "../../../../env";
+
 test("Create new article", async ({ browser }) => {
     const { context, page } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     const articlePage = new ArticlePage(page);
@@ -154,8 +160,11 @@ test("Create new dynamic article", async ({ browser }) => {
     const { context, page } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     const articleData = await createArticle(page);
@@ -168,8 +177,11 @@ test("Edit an article after creating it", async ({ browser }) => {
     const { context, page } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     const editedData = await editArticle(page);
@@ -182,8 +194,11 @@ test("Delete article and validate backend deletion", async ({ browser }) => {
     const { context, page } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     await deleteArticle(page);
@@ -211,8 +226,11 @@ test("Create article via API and edit via UI", async ({ browser }) => {
     const { page, context } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     await page.goto(articleUrl);
@@ -264,8 +282,11 @@ test("Create article via API and delete via UI", async ({ browser }) => {
     const { page, context } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     await page.goto(articleUrl);
@@ -295,8 +316,11 @@ test("Filter Articles by Tag 'Community'", async ({ browser }) => {
     const { page, context } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     await page.goto("https://conduit.bondaracademy.com");
@@ -325,8 +349,11 @@ test("Update User Settings with dynamic username", async ({ browser }) => {
     const { page, context } = await authenticateSession(
         browser,
         "https://conduit.bondaracademy.com",
-        "test96@yopmail.com",
-        "Test@1234",
+        // "test96@yopmail.com",
+        // "Test@1234",
+
+        env.LOGIN_EMAIL!,
+        env.LOGIN_PASSWORD!,
     );
 
     // Generate dynamic username

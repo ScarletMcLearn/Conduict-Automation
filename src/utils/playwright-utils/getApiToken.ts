@@ -8,9 +8,11 @@ const API_SESSION_PATH = path.resolve(
 );
 const EXPIRATION_MS = 60 * 60 * 1000; // 1 hour
 
+import { env } from "../../../../env";
+
 const baseURL = "https://conduit.bondaracademy.com";
-const email = "test96@yopmail.com";
-const password = "Test@1234";
+const email = env.LOGIN_EMAIL!;
+const password = env.LOGIN_PASSWORD!;
 
 type TokenData = {
     token: string;

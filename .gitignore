@@ -66,9 +66,9 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-!.env.example
+!.env.example    
 .env
-# .env.*
+
 
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -276,11 +276,11 @@ aqua.yaml
 .yarn-integrity
 
 # dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+# .env
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# .env.local
 
 # TernJS port file
 .tern-port
