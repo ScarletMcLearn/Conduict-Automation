@@ -32,7 +32,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "tests/**/*.ts",
+    "src/tests/**/*.ts",
     "eslint.config.mjs",
     "trace-playwright-deps.ts",
     "playwright.config.ts"
