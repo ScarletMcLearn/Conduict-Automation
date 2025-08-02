@@ -1,42 +1,42 @@
 {
-  "compilerOptions": {
-    "target": "ES2020",
-    // "module": "nodenext",
-    "module": "commonjs",
+    "compilerOptions": {
+        "target": "ES2020",
+        // "module": "nodenext",
+        "module": "commonjs",
 
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
 
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
 
-    "baseUrl": "./",
-    "paths": {
-      // "*": ["*"],
-      "src/*": ["src/*"]
+        "baseUrl": "./",
+        "paths": {
+            // "*": ["*"],
+            "src/*": ["src/*"]
+        },
+
+        "moduleResolution": "node", // ✅ Ensures modules are resolved like Node.js does
+        "resolveJsonModule": true, // ✅ Enables importing `.json` files
+
+        "isolatedModules": true, // ✅ Ensures each file is treated as a module
+
+        "noEmit": true, // ✅ Prevents outputting JS files (Playwright uses TS directly)
+
+        "outDir": "dist",
+
+        "lib": ["ES2020", "dom"], // avoid pulling DOM types into Node tests
+        "types": ["node", "@playwright/test"] // Node & Playwright typings
     },
+    "include": [
+        "src/**/*.ts",
+        "src/tests/**/*.ts",
+        "eslint.config.mjs",
+        "trace-playwright-deps.ts",
+        "playwright.config.ts"
+    ],
 
-    "moduleResolution": "node", // ✅ Ensures modules are resolved like Node.js does
-    "resolveJsonModule": true, // ✅ Enables importing `.json` files
-
-    "isolatedModules": true, // ✅ Ensures each file is treated as a module
-
-    "noEmit": true, // ✅ Prevents outputting JS files (Playwright uses TS directly)
-
-    "outDir": "dist",
-
-    "lib": ["ES2020", "dom"], // avoid pulling DOM types into Node tests
-    "types": ["node", "@playwright/test"] // Node & Playwright typings
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/tests/**/*.ts",
-    "eslint.config.mjs",
-    "trace-playwright-deps.ts",
-    "playwright.config.ts"
-  ],
-
-  "exclude": ["node_modules", "dist"]
+    "exclude": ["node_modules", "dist"]
 }
